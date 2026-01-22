@@ -2,8 +2,11 @@ package com.educandoweb.projeto_spring.services;
 
 import com.educandoweb.projeto_spring.entities.User;
 import com.educandoweb.projeto_spring.repositories.UserRepository;
+import com.educandoweb.projeto_spring.services.exceptions.DataBaseException;
 import com.educandoweb.projeto_spring.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,9 +31,20 @@ public class UserService {
         return repository.save(obj);
     }
 
-    public void delete(Long id){
-        repository.deleteById(id);
+    public void delete(Long id) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException(id);
+        }
+
+        try {
+            repository.deleteById(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
+
+
+
 
     public User update(Long id, User obj){
         User entity = repository.getReferenceById(id);
