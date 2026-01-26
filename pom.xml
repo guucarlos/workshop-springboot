@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.educandoweb</groupId>
-	<artifactId>projeto-spring</artifactId>
+	<artifactId>workshop-springboot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>projeto-spring</name>
+	<name>workshop-springboot</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
